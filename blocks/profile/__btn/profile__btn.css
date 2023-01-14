@@ -1,4 +1,7 @@
 .profile__btn {
+  background-image: url('../../../images/icons/cross.svg');
+  background-repeat: no-repeat;
+  background-position: center;
   min-width: 150px;
   height: 50px;
   padding: 12px 62px;

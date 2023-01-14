@@ -25,10 +25,6 @@
 @import url(../blocks/foto-card/__title/_overflow/foto-card__title_overflow.css);
 
 @import url(../blocks/button-heart/button-heart.css);
-@import url(../blocks/button-heart/_disabled/icon-heart_disabled.css);
-
-@import url(../blocks/icon-heart/icon-heart.css);
-@import url(../blocks/button-heart/_disabled/icon-heart_disabled.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text-copyright/footer__text-copyright.css);
