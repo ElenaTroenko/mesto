@@ -34,7 +34,7 @@ function handleFormSubmit(evt) {
 // Добавить слушателей событий
 function addEvents() {
   document.querySelector('.profile__btn-edit').addEventListener('click', showForm);
-  document.querySelector('.popup__btn-close').addEventListener('click', hideForm);
+  document.querySelector('.popup-form__btn-close').addEventListener('click', hideForm);
   popupForm.addEventListener('submit', handleFormSubmit);
 }
 

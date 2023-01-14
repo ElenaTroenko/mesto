@@ -1,0 +1,12 @@
+.foto-card__item {
+  max-width: 282px;
+  max-height: 362px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 930px) {
+  .foto-card__item {
+   justify-self: center;
+  }
+}

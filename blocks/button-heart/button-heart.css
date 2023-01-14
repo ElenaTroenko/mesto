@@ -1,0 +1,11 @@
+.button-heart {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+}
+
+.button-heart:hover .icon-heart{
+  fill: #7B7B7B;
+}
