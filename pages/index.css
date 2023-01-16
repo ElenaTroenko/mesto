@@ -23,22 +23,21 @@
 @import url(../blocks/foto-card/__location/foto-card__location.css);
 @import url(../blocks/foto-card/__title/foto-card__title.css);
 @import url(../blocks/foto-card/__title/_overflow/foto-card__title_overflow.css);
-
-@import url(../blocks/button-heart/button-heart.css);
+@import url(../blocks/foto-card/__button-heart/foto-card__button-heart.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text-copyright/footer__text-copyright.css);
 
 @import url(../blocks/popup/popup.css);
-
-@import url(../blocks/popup-show/popup-show.css);
+@import url(../blocks/popup/popup__container/popup__container.css);
+@import url(../blocks/popup/__opened/popup__opened.css);
+@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__btn-close/popup__btn-close.css);
 
 @import url(../blocks/popup-form/popup-form.css);
-@import url(../blocks/popup-form/__title/popup-form__title.css);
 @import url(../blocks/popup-form/__input/popup-form__input.css);
-@import url(../blocks/popup-form/__input-name/popup-form__input-name.css);
-@import url(../blocks/popup-form/__input-job/popup-form__input-job.css);
+@import url(../blocks/popup-form/__input/_profile_name/popup-form__input_profile_name.css);
+@import url(../blocks/popup-form/__input/_profile_activity/popup-form__input_profile_activity.css);
 @import url(../blocks/popup-form/__btn/popup-form__btn.css);
-@import url(../blocks/popup-form/__btn-close/popup-form__btn-close.css);
 
-@import url(../blocks/overlay/overlay.css);
+

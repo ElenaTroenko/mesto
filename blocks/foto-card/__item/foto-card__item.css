@@ -1,8 +1,9 @@
 .foto-card__item {
   max-width: 282px;
-  max-height: 362px;
+  max-height: 361px;
   background-color: white;
   border-radius: 10px;
+  font-size: 0;
 }
 
 @media screen and (max-width: 930px) {

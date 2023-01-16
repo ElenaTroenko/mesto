@@ -19,89 +19,76 @@
         <img class="profile__foto" src="./images/foto_profile.jpg" alt="Фото профиля">
         <div class="profile__about-user">
           <div class="profile__main">
-            <p class="profile__name">Жак-Ив Кусто</p>
-            <button class="profile__btn-edit"></button>
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__btn-edit" type="button"></button>
           </div>
           <p class="profile__about-yourself">Исследователь океана</p>
         </div>
-        <button class="profile__btn" type="button">
-          
-        </button>
+        <button class="profile__btn" type="button"></button>
       </section>
       <section class="foto-card">
-        <div class="foto-card__item">
+        <article class="foto-card__item">
           <img class="foto-card__img" src="./images/icons/karachayevsk.jpg" alt="Фотография Карачаевск">
           <div class="foto-card__location">
-            <p class="foto-card__title">Карачаевск</p>
-            <button class="button-heart" type="button">
-              
-            </button>
+            <h2 class="foto-card__title">Карачаевск</h2>
+            <button class="foto-card__button-heart" type="button"></button>
           </div>
-        </div>
-        <div class="foto-card__item">
+        </article>
+        <article class="foto-card__item">
           <img class="foto-card__img" src="./images/elbrus.jpg" alt="Фотография Гора Эльбрус">
           <div class="foto-card__location">
-            <p class="foto-card__title">Гора Эльбрус</p>
-            <button class="button-heart" type="button">
-              
-            </button>
+            <h2 class="foto-card__title">Гора Эльбрус</h2>
+            <button class="foto-card__button-heart" type="button"></button>
           </div>
-        </div>
-        <div class="foto-card__item">
+        </article>
+        <article class="foto-card__item">
           <img class="foto-card__img" src="./images/dombay.jpg" alt="Фотография Домбай">
           <div class="foto-card__location">
-            <p class="foto-card__title">Домбай</p>
-            <button class="button-heart" type="button">
-              
-            </button>
+            <h2 class="foto-card__title">Домбай</h2>
+            <button class="foto-card__button-heart" type="button"></button>
           </div>
-        </div>
-        <div class="foto-card__item">
+        </article>
+        <article class="foto-card__item">
           <img class="foto-card__img" src="./images/elbrus.jpg" alt="Фотография Гора Эльбрус">
           <div class="foto-card__location">
-            <p class="foto-card__title">Гора Эльбрус</p>
-            <button class="button-heart" type="button">
-              
-            </button>
+            <h2 class="foto-card__title">Гора Эльбрус</h2>
+            <button class="foto-card__button-heart" type="button"></button>
           </div>
-        </div>
-        <div class="foto-card__item">
+        </article>
+        <article class="foto-card__item">
           <img class="foto-card__img" src="./images/dombay.jpg" alt="Фотография Домбай">
           <div class="foto-card__location">
-            <p class="foto-card__title">Домбай</p>
-            <button class="button-heart" type="button">
-              
-            </button>
+            <h2 class="foto-card__title">Домбай</h2>
+            <button class="foto-card__button-heart" type="button"></button>
           </div>
-        </div>
-        <div class="foto-card__item">
+        </article>
+        <article class="foto-card__item">
           <img class="foto-card__img" src="./images/icons/karachayevsk.jpg" alt="Фотография Карачаево-Черкессия">
           <div class="foto-card__location">
-            <p class="foto-card__title foto-card__title_overflow">Карачаево-Черкессия</p>
-            <button class="button-heart" type="button">
-              
-            </button>
+            <h2 class="foto-card__title foto-card__title_overflow">Карачаево-Черкессия</h2>
+            <button class="foto-card__button-heart" type="button"></button>
           </div>
-        </div>
+        </article>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__text-copyright">&copy; 2020 Mesto Russia</p>
     </footer>
     <section class="popup">
-      <form class="popup-form">
-        <p class="popup-form__title">Редактировать профиль</p>
-        <input class="popup-form__input popup-form__input-name" type="text" name="name" value="Жак-Ив Кусто"
-          placeholder="Имя">
-        <input class="popup-form__input popup-form__input-job" type="text" name="yourself" value="Исследователь океана"
-          placeholder="О себе">
-        <button class="popup-form__btn" type="submit">Сохранить</button>
-        <button class="popup-form__btn-close" type="button"></button>
-      </form>
-      <div class="overlay"></div>
+      <div class="popup__container">
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <button class="popup__btn-close" type="button"></button>
+        <form class="popup-form" name="profile">
+          <input class="popup-form__input popup-form__input_profile_name" type="text" name="name" value="Жак-Ив Кусто"
+            placeholder="Имя">
+          <input class="popup-form__input popup-form__input_profile_activity" type="text" name="yourself"
+            value="Исследователь океана" placeholder="О себе">
+          <button class="popup-form__btn" type="submit">Сохранить</button>
+        </form>
+      </div>
     </section>
   </div>
-  <script src="./pages/index.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 
 </html>
