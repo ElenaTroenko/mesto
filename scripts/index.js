@@ -11,7 +11,7 @@ let btnPopupClose = document.querySelector('.popup__btn-close');  // кнопк�
 
 // Показать форму
 function showForm() {
-  popup.classList.add('popup__opened');
+  popup.classList.add('popup_opened');
 
   inputName.value = profileName.textContent;
   inputJob.value = profileAboutYourSelf.textContent;
@@ -20,7 +20,7 @@ function showForm() {
 
 // Скрыть форму
 function hideForm() {
-  popup.classList.remove('popup__opened');
+  popup.classList.remove('popup_opened');
 }
 
 

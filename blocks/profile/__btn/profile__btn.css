@@ -21,5 +21,6 @@
     max-width: 282px;
     width: 100%;
     margin: 32px auto 0;
+    background-image: url('../../../images/icons/cross_small.svg');
   }
 }
