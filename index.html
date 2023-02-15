@@ -26,49 +26,18 @@
         </div>
         <button class="profile__btn" type="button"></button>
       </section>
-      <section class="foto-card">
-        <article class="foto-card__item">
-          <img class="foto-card__img" src="./images/icons/karachayevsk.jpg" alt="Фотография Карачаевск">
-          <div class="foto-card__location">
-            <h2 class="foto-card__title">Карачаевск</h2>
-            <button class="foto-card__button-heart" type="button"></button>
-          </div>
-        </article>
-        <article class="foto-card__item">
-          <img class="foto-card__img" src="./images/elbrus.jpg" alt="Фотография Гора Эльбрус">
-          <div class="foto-card__location">
-            <h2 class="foto-card__title">Гора Эльбрус</h2>
-            <button class="foto-card__button-heart" type="button"></button>
-          </div>
-        </article>
-        <article class="foto-card__item">
-          <img class="foto-card__img" src="./images/dombay.jpg" alt="Фотография Домбай">
-          <div class="foto-card__location">
-            <h2 class="foto-card__title">Домбай</h2>
-            <button class="foto-card__button-heart" type="button"></button>
-          </div>
-        </article>
-        <article class="foto-card__item">
-          <img class="foto-card__img" src="./images/elbrus.jpg" alt="Фотография Гора Эльбрус">
-          <div class="foto-card__location">
-            <h2 class="foto-card__title">Гора Эльбрус</h2>
-            <button class="foto-card__button-heart" type="button"></button>
-          </div>
-        </article>
-        <article class="foto-card__item">
-          <img class="foto-card__img" src="./images/dombay.jpg" alt="Фотография Домбай">
-          <div class="foto-card__location">
-            <h2 class="foto-card__title">Домбай</h2>
-            <button class="foto-card__button-heart" type="button"></button>
-          </div>
-        </article>
-        <article class="foto-card__item">
-          <img class="foto-card__img" src="./images/icons/karachayevsk.jpg" alt="Фотография Карачаево-Черкессия">
-          <div class="foto-card__location">
-            <h2 class="foto-card__title foto-card__title_overflow">Карачаево-Черкессия</h2>
-            <button class="foto-card__button-heart" type="button"></button>
-          </div>
-        </article>
+      <section class="foto-card" aria-label="карточки с фотографиями">
+        <!-- template -->
+        <template id="template-card">
+          <article class="foto-card__item">
+            <button class="foto-card__basket" type="button"></button>
+            <img class="foto-card__img" src="./images/icons/karachayevsk.jpg" alt="Фотография Карачаевск">
+            <div class="foto-card__location">
+              <h2 class="foto-card__title"></h2>
+              <button class="foto-card__button-heart" type="button"></button>
+            </div>
+          </article>
+        </template>
       </section>
     </main>
     <footer class="footer">
@@ -76,17 +45,34 @@
     </footer>
     <section class="popup">
       <div class="popup__container">
-        <h3 class="popup__title">Редактировать профиль</h3>
+        <h2 class="popup__title">Заголовок</h2>
         <button class="popup__btn-close" type="button"></button>
-        <form class="popup-form" name="profile">
+        <!-- forma profile -->
+        <form class="popup-form popup-form_edit_profile" name="profile">
           <input class="popup-form__input popup-form__input_profile_name" type="text" name="name" value="Жак-Ив Кусто"
             placeholder="Имя">
           <input class="popup-form__input popup-form__input_profile_activity" type="text" name="yourself"
             value="Исследователь океана" placeholder="О себе">
           <button class="popup-form__btn" type="submit">Сохранить</button>
         </form>
+        <!-- forma new place -->
+        <form class="popup-form popup-form_new_place" name="newplace">
+          <input class="popup-form__input popup-form__input_place_name" type="text" name="placename" value=""
+            placeholder="Название">
+          <input class="popup-form__input popup-form__input_place_link" type="text" name="placelink" value=""
+            placeholder="Ссылка на картинку">
+          <button class="popup-form__btn" type="submit">Создать</button>
+        </form>
       </div>
     </section>
+    <!-- zoom image -->
+    <dialog class="zoom">
+      <figure class="zoom__picture">
+        <button class="zoom__btn-close"></button>
+        <img class="zoom__image" src="./images/icons/karachayevsk.jpg" alt="Фотография Карачаевск">
+        <figcaption class="zoom__text"></figcaption>
+      </figure >
+    </dialog>
   </div>
   <script src="./scripts/index.js"></script>
 </body>
