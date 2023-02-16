@@ -1,4 +1,4 @@
-.profile__btn {
+.profile__btn-place {
   background-image: url('../../../images/icons/cross.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -12,12 +12,12 @@
   margin-left: auto;
 }
 
-.profile__btn:hover {
+.profile__btn-place:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width: 700px) {
-  .profile__btn {
+  .profile__btn-place {
     max-width: 282px;
     width: 100%;
     margin: 32px auto 0;

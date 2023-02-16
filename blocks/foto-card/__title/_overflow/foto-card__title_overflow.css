@@ -1,6 +1,0 @@
-.foto-card__title_overflow {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  max-width: 197px;
-}
