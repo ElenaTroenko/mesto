@@ -48,11 +48,14 @@
         <h2 class="popup__title">Редактировать профиль</h2>
         <button class="popup__btn-close" type="button" aria-label="Закрыть"></button>
         <!-- forma profile -->
-        <form class="popup-form" name="profile">
-          <input class="popup-form__input popup-form__input_profile_name" type="text" name="name" value="Жак-Ив Кусто"
-            placeholder="Имя" required>
-          <input class="popup-form__input popup-form__input_profile_activity" type="text" name="yourself"
-            value="Исследователь океана" placeholder="О себе" required>
+        <form class="popup-form" name="profile" novalidate>
+          <input id="input-name" class="popup-form__input popup-form__input_profile_name" type="text" name="name"
+            value="Жак-Ив Кусто" placeholder="Имя" minlength="2" maxlength="40" required autocomplete="off">
+          <span class="popup-form__input-error input-name-error">Вы пропустили это поле.</span>
+          <input id="input-yourself" class="popup-form__input popup-form__input_profile_activity" type="text"
+            name="yourself" value="Исследователь океана" placeholder="О себе" minlength="2" maxlength="200" required
+            autocomplete="off">
+          <span class="popup-form__input-error input-yourself-error">Вы пропустили это поле.</span>
           <button class="popup-form__btn" type="submit">Сохранить</button>
         </form>
       </div>
@@ -62,12 +65,14 @@
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
         <button class="popup__btn-close" type="button" aria-label="Закрыть"></button>
-        <form class="popup-form" name="newplace">
-          <input class="popup-form__input popup-form__input_place_name" type="text" name="placename"
-            placeholder="Название" required>
-          <input class="popup-form__input popup-form__input_place_link" type="url" name="placelink"
+        <form class="popup-form" name="newplace" novalidate>
+          <input id="input-place" class="popup-form__input popup-form__input_place_name" type="text" name="placename"
+            placeholder="Название" minlength="2" maxlength="30" required>
+          <span class="popup-form__input-error input-place-error">Вы пропустили это поле.</span>
+          <input id="input-url" class="popup-form__input popup-form__input_place_link " type="url" name="placelink"
             placeholder="Ссылка на картинку" required>
-          <button class="popup-form__btn" type="submit">Создать</button>
+          <span class="popup-form__input-error input-url-error">Введите адрес сайта.</span>
+          <button class="popup-form__btn popup-form__btn_disable" type="submit">Создать</button>
         </form>
       </div>
     </section>
@@ -81,6 +86,7 @@
     </section>
   </div>
   <script src="./scripts/constants.js"></script>
+  <script src="./scripts/validate.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
 

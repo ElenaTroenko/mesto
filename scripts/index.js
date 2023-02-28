@@ -9,6 +9,7 @@ const profileName = document.querySelector('.profile__name');                   
 const profileAboutYourSelf = document.querySelector('.profile__about-yourself');  // О себе на странице
 
 // popup редактирования профиля
+const popUps = document.querySelectorAll('.popup');
 const popupEditProfile = document.querySelector('.popup_edit_profile');                         // popup редактирования профиля
 const inputProfileName = popupEditProfile.querySelector('.popup-form__input_profile_name');     // поле Имя
 const inputProfileJob = popupEditProfile.querySelector('.popup-form__input_profile_activity');  // поле О себе
@@ -47,10 +48,6 @@ function hidePopUp(popup) {
 
 // Показать форму редактирования профиля
 function showEditProfileForm() {
-  // Заполнить поля
-  inputProfileName.value = profileName.textContent;
-  inputProfileJob.value = profileAboutYourSelf.textContent;
-
   // Показать popup
   showPopUp(popupEditProfile);
 }
@@ -58,7 +55,7 @@ function showEditProfileForm() {
 
 // Показать форму добавления места
 function showNewPlaceForm() {
- // Показать popup
+  // Показать popup
   showPopUp(popupNewPlace);
 }
 
@@ -91,6 +88,7 @@ function handleFormSubmitPlace(evt) {
   
   const cardElement = createFotoCard(inputPlaceName.value, inputPlaceLink.value);
 
+  // отрисовать карточку места
   renderCard (cardElement);
 
   // скрыть popup
@@ -128,6 +126,7 @@ function createFotoCard(name, link){
   return cardElement;
 }
 
+// Отрисовывает карточку места на странице
 function renderCard(cardElement) {
   sectionCards.prepend(cardElement);
 }
@@ -148,10 +147,31 @@ function addEvents() {
   btnProfileEdit.addEventListener('click', showEditProfileForm);
   btnAddNewPlace.addEventListener('click', showNewPlaceForm);
   
+  // добавить обработчика события всем popup-ам
+  popUps.forEach((popupItem) => {
+    popupItem.addEventListener('click', (evt) => {
+      if (evt.target == popupItem) {
+        hidePopUp(popupItem);
+      } 
+    });   
+  });
+
+  // добавить обработчика события объекту document
+  document.addEventListener('keydown', (evt) => {
+    // если нажата клавиша Escape
+    if (evt.key === 'Escape') {
+      popUps.forEach((popupItem) => {
+        hidePopUp(popupItem);
+      });
+    }
+  });
+
+  // добавить обработчики события кнопкам закрытия всех форм
   btnEditProfileClose.addEventListener('click', () => hidePopUp(popupEditProfile));
   btnNewPlaceClose.addEventListener('click', () => hidePopUp(popupNewPlace));
   btnZoomClose.addEventListener('click', () => hidePopUp(popupZoom));
-  
+
+  // добавить обработчики события отправки форм
   formEditProfile.addEventListener('submit', handleFormSubmitProfile);
   formNewPlace.addEventListener('submit', handleFormSubmitPlace);
 }

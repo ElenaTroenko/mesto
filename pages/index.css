@@ -41,10 +41,19 @@
 @import url(../blocks/popup-form/__input/popup-form__input.css);
 @import url(../blocks/popup-form/__input/_profile/popup-form__input_profile_name.css);
 @import url(../blocks/popup-form/__input/_profile/popup-form__input_profile_activity.css);
+@import url(../blocks/popup-form/__input/_type/popup-form__input_type_error.css);
+@import url(../blocks/popup-form/__input-error/popup-form__input-error.css);
+@import url(../blocks/popup-form/__input-error/_active/popup-form__input-error_active.css);
 @import url(../blocks/popup-form/__btn/popup-form__btn.css);
+@import url(../blocks/popup-form/__btn/_disable/popup-form__btn_disable.css);
 
 @import url(../blocks/popup-form/__input/_place/popup-form__input_place_name.css);
 @import url(../blocks/popup-form/__input/_place/popup-form__input_place_link.css);
+
+@import url(../blocks/input-name-error/input-name-error.css);
+@import url(../blocks/input-yourself-error/input-yourself-error.css);
+@import url(../blocks/input-place-error/input-place-error.css);
+@import url(../blocks/input-url-error/input-url-error.css);
 
 @import url(../blocks/popup-zoom/popup-zoom.css);
 @import url(../blocks/popup-zoom/__picture/popup-zoom__picture.css);
