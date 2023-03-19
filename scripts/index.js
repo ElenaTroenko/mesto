@@ -1,5 +1,6 @@
-// Шаблон карточки места
-const cardTemplate = document.querySelector('#template-card').content;
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import {initialCards, cardSelectors, validateSelectors} from './constants.js';
 
 // Секция карточек
 const sectionCards = document.querySelector('.foto-card');
@@ -133,7 +134,13 @@ function handleFormSubmitProfile(evt) {
 function handleFormSubmitPlace(evt) {
   evt.preventDefault();  // не перегружать страницу в браузере
   
-  const cardElement = createFotoCard(inputPlaceName.value, inputPlaceLink.value);
+  const data = {
+    name: inputPlaceName.value,
+    link: inputPlaceLink.value,
+  }
+
+  const card = new Card(data, cardSelectors, showZoom);
+  const cardElement = card.getCard();
 
   // отрисовать карточку места
   renderCard (cardElement);
@@ -148,47 +155,21 @@ function handleFormSubmitPlace(evt) {
 }
 
 
-// Включает/выключает сердечко
-function changeHeart(element) {
-  element.classList.toggle('foto-card__button-heart_active');
-}
-
-
-// функция для создания карточки из шаблона html
-function createFotoCard(name, link){
-  const cardElement = cardTemplate.querySelector('.foto-card__item').cloneNode(true);
-  const cardElementImg = cardElement.querySelector('.foto-card__img');
-  const heartElement = cardElement.querySelector('.foto-card__button-heart');
-  const basketBtn = cardElement.querySelector('.foto-card__basket');
-  
-  cardElement.querySelector('.foto-card__title').textContent = name;
-  cardElementImg.src = link;
-  cardElementImg.alt = `Фото места: ${name}`;
-  
-  // добавить событие удаления карточки
-  basketBtn.addEventListener('click', () => cardElement.remove());
-  // добавить событие смены сердечка
-  heartElement.addEventListener('click', event => changeHeart(event.target));
-  // добавить событие показа Зума
-  cardElementImg.addEventListener('click', () => showZoom(name, cardElementImg.src)); 
-
-  return cardElement;
-}
-
-
-// Отрисовывает карточку места на странице
-function renderCard(cardElement) {
-  sectionCards.prepend(cardElement);
-}
-
-
-//Функция загрузки карточек из массива
+//Функция загрузки заранее данных карточек 
 function createDefaultCards() {
   initialCards.forEach(item => {
-    const cardElement = createFotoCard(item.name, item.link);
     
+    const card = new Card(item, cardSelectors, showZoom);
+    const cardElement = card.getCard();
+
     renderCard(cardElement);
+
   });
+}
+
+
+function renderCard(cardElement) {
+  sectionCards.prepend(cardElement);
 }
 
 
@@ -217,7 +198,24 @@ function addEvents() {
 }
 
 
+// Функция поиска и добавления проверки валидации по всем формам,
+// которые будут найдены на странице
+function enableValidation() {
+  // все формы
+  const formList = Array.from(document.querySelectorAll(validateSelectors.formSelector));
+
+  // перечислить и добавить валидацию
+  formList.forEach((formElement) => {
+    const formValidator = new FormValidator(validateSelectors, formElement);
+    formValidator.enableValidation();
+  });
+
+};
+
+
 // Добавить события
 addEvents();
 // создать карточки из массива 
 createDefaultCards();
+// включить валидацию форм
+enableValidation();
