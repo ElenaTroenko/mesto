@@ -1,28 +1,28 @@
 class Card {
   constructor(data, selectors, zoomCallBack) {
+    // Селекторы
+    this._selectors = selectors;
+
+    // загрузка template
+    this._loadTemplate();
 
     this._name = data.name;
     this._link = data.link;
 
     this._zoomCallBack = zoomCallBack;
 
-    // Селекторы
-    this._selectors = selectors;
-
     // Установить свойства объекта
-    this._template = document.querySelector(selectors.templateSelector).content;                            // Шаблон карточки места
     this._cardElement = this._template.querySelector(this._selectors.cardElementSelector).cloneNode(true);  // Карточка места
     this._cardElementImg = this._cardElement.querySelector(this._selectors.cardElementImgSelector);         // Фотография места
     this._heartElement =  this._cardElement.querySelector(this._selectors.heartElementSelector);            // Сердечко
     this._basketBtn =  this._cardElement.querySelector(this._selectors.basketBtnSelector);                  // Корзина
 
-    // Заполнить title, link, alt
-    this._cardElement.querySelector(this._selectors.cardElementTitleSelector).textContent = this._name;
-    this._cardElementImg.src = this._link;
-    this._cardElementImg.alt = `Фото места: ${this._name}`;
-
     // установить слушателей событий
     this._setEventListeners();
+  }
+
+  _loadTemplate() {
+    this._template = document.querySelector(this._selectors.templateSelector).content;                            // Шаблон карточки места
   }
 
   // Хэндлер для удаления карточки
@@ -48,6 +48,11 @@ class Card {
 
   // Возвращает элемент карточки
   getCard() {
+    // Заполнить title, link, alt
+    this._cardElement.querySelector(this._selectors.cardElementTitleSelector).textContent = this._name;
+    this._cardElementImg.src = this._link;
+    this._cardElementImg.alt = `Фото места: ${this._name}`;
+
     return this._cardElement;
   }
 }

@@ -2,6 +2,9 @@ import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import {initialCards, cardSelectors, validateSelectors} from './constants.js';
 
+// Клавиша Esc
+const keyEscape = 'Escape';
+
 // Секция карточек
 const sectionCards = document.querySelector('.foto-card');
 
@@ -42,7 +45,7 @@ const btnAddNewPlace = document.querySelector('.profile__btn-place');    // кн
 // Хэндлер нажатия клавиши esc
 function handleEscKeydown(evt) {
     // если нажата клавиша Escape
-    if (evt.key === 'Escape') {
+    if (evt.key === keyEscape) {
       const openedPopup = document.querySelector('.popup_opened');
       
       hidePopUp(openedPopup); 
@@ -139,8 +142,7 @@ function handleFormSubmitPlace(evt) {
     link: inputPlaceLink.value,
   }
 
-  const card = new Card(data, cardSelectors, showZoom);
-  const cardElement = card.getCard();
+  const cardElement = getCardElement(data);
 
   // отрисовать карточку места
   renderCard (cardElement);
@@ -155,13 +157,20 @@ function handleFormSubmitPlace(evt) {
 }
 
 
+// Возвращает cardElement
+function getCardElement(data) {
+  const card = new Card(data, cardSelectors, showZoom);
+  const cardElement = card.getCard();
+  return cardElement;
+}
+
+
 //Функция загрузки заранее данных карточек 
 function createDefaultCards() {
   initialCards.forEach(item => {
     
-    const card = new Card(item, cardSelectors, showZoom);
-    const cardElement = card.getCard();
-
+    const cardElement = getCardElement(item);
+    
     renderCard(cardElement);
 
   });
@@ -171,6 +180,21 @@ function createDefaultCards() {
 function renderCard(cardElement) {
   sectionCards.prepend(cardElement);
 }
+
+
+// Функция поиска и добавления проверки валидации по всем формам,
+// которые будут найдены на странице
+function enableValidation() {
+  // все формы
+  const formList = Array.from(document.querySelectorAll(validateSelectors.formSelector));
+
+  // перечислить и добавить валидацию
+  formList.forEach((formElement) => {
+    const formValidator = new FormValidator(validateSelectors, formElement);
+    formValidator.enableValidation();
+  });
+
+};
 
 
 // Добавить слушателей событий 
@@ -196,21 +220,6 @@ function addEvents() {
   formEditProfile.addEventListener('submit', handleFormSubmitProfile);
   formNewPlace.addEventListener('submit', handleFormSubmitPlace);
 }
-
-
-// Функция поиска и добавления проверки валидации по всем формам,
-// которые будут найдены на странице
-function enableValidation() {
-  // все формы
-  const formList = Array.from(document.querySelectorAll(validateSelectors.formSelector));
-
-  // перечислить и добавить валидацию
-  formList.forEach((formElement) => {
-    const formValidator = new FormValidator(validateSelectors, formElement);
-    formValidator.enableValidation();
-  });
-
-};
 
 
 // Добавить события
