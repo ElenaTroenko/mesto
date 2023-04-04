@@ -1,6 +1,6 @@
-.popup__btn-close {
-  background-image: url(../../../images/icons/Close\ Icon.svg);
+.popup-zoom__btn-close {
   position: absolute;
+  background-image: url('../../../images/icons/Close_Icon.svg');
   top: -41px;
   right: -40px;
   width: 32px;
@@ -10,14 +10,15 @@
   border: none;
   cursor: pointer;
   background-size: cover;
+  z-index: 3;
 }
 
-.popup__btn-close:hover {
+.popup-zoom__btn-close:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width: 540px) {
-  .popup__btn-close {
+  .popup-zoom__btn-close {
     width: 20px;
     height: 20px;
     right: 0;

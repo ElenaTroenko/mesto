@@ -21,6 +21,14 @@ class FormValidator {
     });
   };
 
+  reset() {
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+
+    this._toggleButton();
+  }
+
   // Показывает сообщение об ошибке под переданным input-элементом
   _showInputError(inputElement) {
     // найти error-элемент для отображения ошибки

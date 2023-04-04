@@ -1,12 +1,12 @@
 class Card {
-  constructor(data, selectors, zoomCallBack) {
+  constructor(data, selectors, cardClickHandler) {
     // Селекторы
     this._selectors = selectors;
 
     this._name = data.name;
     this._link = data.link;
 
-    this._zoomCallBack = zoomCallBack;
+    this._cardClickHandler = cardClickHandler;
   }
 
   _loadTemplate() {
@@ -24,15 +24,15 @@ class Card {
   }
 
   // Хэндлер, вызывающий Zoom
-  _handleCallZoom() {
-    this._zoomCallBack(this._name, this._cardElementImg.src);
+  _handleCardClick() {
+    this._cardClickHandler(this._name, this._cardElementImg.src);
   }
 
   // установить слушателей событий
   _setEventListeners() {
     this._basketBtn.addEventListener('click', () => this._handleRemoveCard());    // добавить событие удаления карточки
     this._heartElement.addEventListener('click', () => this._handleChangeHeart());  // добавить событие смены сердечка    
-    this._cardElementImg.addEventListener('click', () => this._handleCallZoom());  // добавить событие показа Зума
+    this._cardElementImg.addEventListener('click', () => this._handleCardClick());  // добавить событие показа Зума
   }
   
   // заполняет карту данными
