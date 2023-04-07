@@ -87,14 +87,6 @@ export const userProfileSelectors = {
   aboutUserSelector: '.profile__about-yourself',
 }
 
-
-// селекторы input-полей
-export const inputSelectors = {
-  inputPlaceNameClass: 'popup-form__input_place_name',
-  inputPlaceLinkClass: 'popup-form__input_place_link',
-}
-
-
 // селекторы кнопок на странице
 export const buttonsSelectors = {
   btnEditProfileSelector: '.profile__btn-edit',
@@ -105,4 +97,13 @@ export const buttonsSelectors = {
 // селекторы элементов для секций
 export const sectionElementsSelectors = {
   fotoCardSelector: '.foto-card',
+}
+
+
+// имена input-полей
+export const inputNames = {
+  placeName: 'placename',
+  placeLink: 'placelink',
+  profileName: 'name',
+  profileAbout: 'yourself',
 }

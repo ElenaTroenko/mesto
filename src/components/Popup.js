@@ -1,14 +1,16 @@
 // Класс для попапа
 export default class Popup {
-  constructor(selectors, closeHandler) {
+  constructor(selectors) {
     this._selectors = selectors;        // объект селекторов
-    this._closeHandler = closeHandler;  // колбэк - хэндлер закрытия попапа
 
     // сам попап-элемент
     this._popupElement = document.querySelector(this._selectors.pupupElementSelector);
 
     // кнопка закрытия попапа
     this._btnClose = this._popupElement.querySelector(this._selectors.btnCloseSelector);
+
+    // привязка контекста
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   // хэндлер клавиши esc
@@ -16,7 +18,7 @@ export default class Popup {
     const keyEscape = 'Escape';
     // если нажата клавиша Escape
     if (evt.key === keyEscape) {
-      this.close()      
+      this.close();
     }
   }
  
@@ -26,17 +28,23 @@ export default class Popup {
       this.close();
     }
   }
-
+    
   // открыть (показать) попап
   open() {
     this._popupElement.classList.add(this._selectors.popupOpenedClass);
-    this._popupElement.focus();
+        
+    // добавить слушателей событий Esc
+    this._popupElement.addEventListener('keydown', this._handleEscClose);
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   // закрыть попап
   close() {
+    // удалить слушателей событий Esc
+    document.removeEventListener('keydown', this._handleEscClose);
+    this._popupElement.removeEventListener('keydown', this._handleEscClose);
+    
     this._popupElement.classList.remove(this._selectors.popupOpenedClass);
-    this._closeHandler();
   }
 
   // добавляет слушателей событий
@@ -45,13 +53,9 @@ export default class Popup {
       this._popupElement.addEventListener('mousedown', (evt) => {
         this._handleClickOnPopupElement(evt);
       });
-      // клавиша
-      this._popupElement.addEventListener('keydown', (evt) => {
-        this._handleEscClose(evt)
-      });
       // клик мышью по кнопке закрытия
-      this._btnClose.addEventListener('mousedown', () => {
-        this.close()
+      this._btnClose.addEventListener('click', () => {
+        this.close();
       });
   }
   

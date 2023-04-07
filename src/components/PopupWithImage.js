@@ -2,12 +2,11 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithImage extends Popup {
-  constructor(selectors, closeHandler) {
-    super(selectors, closeHandler);
+  constructor(selectors) {
+    super(selectors);
 
     this._image = this._popupElement.querySelector(selectors.imageSelector);  // элемент картинки
     this._title = this._popupElement.querySelector(selectors.titleSelector);  // элемент заголовка
-
   }
 
   // открыть попап, установив картинку и заголовок.

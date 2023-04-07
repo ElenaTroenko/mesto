@@ -1,10 +1,10 @@
 class Card {
-  constructor(data, selectors, cardClickHandler) {
+  constructor({name, link}, selectors, cardClickHandler) {
     // Селекторы
     this._selectors = selectors;
 
-    this._name = data.name;
-    this._link = data.link;
+    this._name = name;
+    this._link = link;
 
     this._cardClickHandler = cardClickHandler;
   }
