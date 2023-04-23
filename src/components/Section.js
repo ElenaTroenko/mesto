@@ -8,7 +8,6 @@ export default class Section {
   constructor({items, renderer}, selector){
     this._renderedItemsData = items;
     this._renderer = renderer;  // колбэк - функция для рендеринга элементов секции
-    
     this._container = document.querySelector(selector);  // контейнер
   }
 
@@ -23,4 +22,5 @@ export default class Section {
   addItem(item) {
     this._container.prepend(item);
   }
+
 }

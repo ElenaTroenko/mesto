@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Фотопоток пользователя</title>
-  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
 </head>
 
 <body>
@@ -16,13 +15,16 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__foto" src="<%=require('./images/foto_profile.jpg')%>" alt="Фото профиля">
+        <div class="profile__wrap">
+          <div class="profile__icon"></div>
+          <img class="profile__foto" src="" alt="Фото профиля">
+        </div>
         <div class="profile__about-user">
           <div class="profile__main">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <h1 class="profile__name"></h1>
             <button class="profile__btn-edit" type="button" aria-label="Редактировать профиль "></button>
           </div>
-          <p class="profile__about-yourself">Исследователь океана</p>
+          <p class="profile__about-yourself"></p>
         </div>
         <button class="profile__btn-place" type="button" aria-label="Добавить карточку"></button>
       </section>
@@ -31,10 +33,15 @@
         <template id="template-card">
           <article class="foto-card__item">
             <button class="foto-card__basket" type="button"></button>
-            <img class="foto-card__img" src="<%=require('./images/icons/karachayevsk.jpg')%>" alt="Фотография Карачаевск">
+            <img class="foto-card__img" src="<%=require('./images/icons/karachayevsk.jpg')%>"
+              alt="Фотография Карачаевск">
             <div class="foto-card__location">
               <h2 class="foto-card__title"></h2>
-              <button class="foto-card__button-heart" type="button"></button>
+              <div class="foto-card__inner">
+                <button class="foto-card__button-heart" type="button"></button>
+                <div class="foto-card__counter"></div>
+              </div>
+
             </div>
           </article>
         </template>
@@ -53,8 +60,7 @@
             value="" placeholder="Имя" minlength="2" maxlength="40" required autocomplete="off">
           <span class="popup-form__input-error input-name-error">Вы пропустили это поле.</span>
           <input id="input-yourself" class="popup-form__input popup-form__input_profile_activity" type="text"
-            name="yourself" value="" placeholder="О себе" minlength="2" maxlength="200" required
-            autocomplete="off">
+            name="yourself" value="" placeholder="О себе" minlength="2" maxlength="200" required autocomplete="off">
           <span class="popup-form__input-error input-yourself-error">Вы пропустили это поле.</span>
           <button class="popup-form__btn" type="submit">Сохранить</button>
         </form>
@@ -84,8 +90,31 @@
         <figcaption class="popup-zoom__text"></figcaption>
       </figure>
     </section>
+    <!-- popup подтверждения -->
+    <section class="popup popup_class_confirmation">
+      <div class="popup__container popup__container_type_confirmation">
+        <h2 class="popup__title popup__title_type_confirmation ">Вы уверены?</h2>
+        <div class="popup-form">
+          <button class="popup-form__btn" type="submit">Да</button>
+        </div>
+        <button class="popup__btn-close" type="button" aria-label="Закрыть"></button>
+      </div>
+    </section>
+    <!-- popup формы передачи avatar -->
+    <section class="popup popup_update_avatar">
+      <div class="popup__container popup__container_type_avatar">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <button class="popup__btn-close" type="button" aria-label="Закрыть"></button>
+        <form class="popup-form" name="avatar" novalidate>
+          <input id="input-avatar-url" class="popup-form__input popup-form__input_avatar_link " type="url"
+            name="avatarlink" placeholder="Ссылка на аватар" required>
+          <span class="popup-form__input-error input-avatar-url-error">Введите адрес сслыка на аватар.</span>
+          <button class="popup-form__btn popup-form__btn_disable" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </section>
   </div>
-  <!-- <script type="module" src="./pages/index.js"></script> -->
+
 </body>
 
 </html>

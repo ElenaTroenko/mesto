@@ -1,31 +1,10 @@
-// Карточки места по-умолчанию
-export const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  },
-];
+export const token = '7fa7d08a-8e71-4306-afc1-47a65e80e1dc';
 
+export const baseUrls = {
+  cardsUrl: 'https://mesto.nomoreparties.co/v1/cohort-64/cards',
+  userInfoUrl: 'https://nomoreparties.co/v1/cohort-64/users/me',
+  userAvatarUrl: 'https://nomoreparties.co/v1/cohort-64/users/me/avatar',
+}
 
 // Селекторы карточек места
 export const cardSelectors = {
@@ -36,6 +15,7 @@ export const cardSelectors = {
   basketBtnSelector: '.foto-card__basket',
   cardElementTitleSelector: '.foto-card__title',
   heartActiveClass: 'foto-card__button-heart_active',
+  likesCounterSelector: '.foto-card__counter',
 }
 
 // Селекторы для валидации форм
@@ -48,7 +28,6 @@ export const validateSelectors = {
   errorClass: 'popup-form__input-error_active',
 }
 
-
 // селекторы попапа нового места
 export const popupNewPlaceSelectors = {
   pupupElementSelector: '.popup_new_place',
@@ -56,8 +35,20 @@ export const popupNewPlaceSelectors = {
   btnCloseSelector: '.popup__btn-close',
   formElementSelector: '.popup-form',
   inputSelector: '.popup-form__input',
+  buttonSubmitSelector: '.popup-form__btn',
+  inactiveButtonClass: 'popup-form__btn_disable',
 }
 
+// селекторы попапа аватара
+export const popupAvatarSelectors = {
+  pupupElementSelector: '.popup_update_avatar',
+  popupOpenedClass: 'popup_opened',
+  btnCloseSelector: '.popup__btn-close',
+  formElementSelector: '.popup-form',
+  inputSelector: '.popup-form__input',
+  buttonSubmitSelector: '.popup-form__btn',
+  inactiveButtonClass: 'popup-form__btn_disable',
+}
 
 // селекторы попапа зума
 export const popupZoomSelectors = {
@@ -68,7 +59,6 @@ export const popupZoomSelectors = {
   titleSelector: '.popup-zoom__text',
 }
 
-
 // селекторы попапа редактирования профиля
 export const editProfileSelectors = {
   pupupElementSelector: '.popup_edit_profile',
@@ -78,27 +68,36 @@ export const editProfileSelectors = {
   inputSelector: '.popup-form__input',
   inputProfileNameClass: 'popup-form__input_profile_name',
   inputProfileJobClass: 'popup-form__input_profile_activity',
+  buttonSubmitSelector: '.popup-form__btn',
+  inactiveButtonClass: 'popup-form__btn_disable',
 }
 
+// селекторы попапа удаления карточки
+export const removeCardConfirmSelectors = {
+  pupupElementSelector: '.popup_class_confirmation',
+  popupOpenedClass: 'popup_opened',
+  btnCloseSelector: '.popup__btn-close',
+  buttonElementSelector: '.popup-form__btn',
+}
 
 // селекторы попапа пользовательского профиля на странице
 export const userProfileSelectors = {
   userNameSelector: '.profile__name',
   aboutUserSelector: '.profile__about-yourself',
+  userAvatarSelector: '.profile__foto',
 }
 
 // селекторы кнопок на странице
 export const buttonsSelectors = {
   btnEditProfileSelector: '.profile__btn-edit',
   btnAddNewPlaceSelector: '.profile__btn-place',
+  avatarWrapperSelector: '.profile__wrap',
 }
-
 
 // селекторы элементов для секций
 export const sectionElementsSelectors = {
   fotoCardSelector: '.foto-card',
 }
-
 
 // имена input-полей
 export const inputNames = {
@@ -106,4 +105,5 @@ export const inputNames = {
   placeLink: 'placelink',
   profileName: 'name',
   profileAbout: 'yourself',
+  profileAvatar: 'avatarlink',
 }

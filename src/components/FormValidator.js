@@ -21,6 +21,7 @@ class FormValidator {
     });
   };
 
+  // сбросить валидацию
   resetValidation() {
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
@@ -28,7 +29,7 @@ class FormValidator {
 
     this._toggleButton();
   }
-
+  
   // Показывает сообщение об ошибке под переданным input-элементом
   _showInputError(inputElement) {
     // найти error-элемент для отображения ошибки
