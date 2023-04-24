@@ -3,7 +3,8 @@ class Card {
   //
   // объект данных карточки, селекторы, хэндлер клика по карточке, хэндлер удаления карточки,
   // объект данных просматривающего пользователя, хэндлер установки лайка, хэндлер удаления лайка
-  constructor({name, link, _id, likes=[], owner, createdAt}, selectors, cardClickHandler, removeCardHandler, userProfile, setlikeHandler, delLikeHandler) {
+  constructor({name, link, _id, likes=[], owner, createdAt},
+    selectors, cardClickHandler, removeCardHandler, userProfile, setlikeHandler, delLikeHandler) {
     // Селекторы
     this._selectors = selectors;
 
@@ -23,7 +24,7 @@ class Card {
     this._setlikeHandler = setlikeHandler;
     this._delLikeHandler = delLikeHandler;
 
-    // показать когзину или не показывать (определяется сравнением id владельца и текущего пользователя)
+    // показать корзину или не показывать (определяется сравнением id владельца и текущего пользователя)
     this._showBasket = this._owner._id == this._userProfile._id;
   }
 
@@ -91,13 +92,13 @@ class Card {
   }
 
   // удалить карточку
-  remove() {
+  removeCardElement() {
     this._cardElement.remove();
   }
 
   // обновить информацию о лайках
   refreshLikes(likes)  {
-    this._likes = likes;  // массив объектов-данный лайков (содержит данные пользователей)
+    this._likes = likes;  // массив объектов-данных лайков (содержит данные пользователей)
     this._likesCounter.textContent = this._likes.length;  // счетчик лайков
 
     // отфильтровать массив лайков и определить, есть ли среди них лайк текущего пользователя

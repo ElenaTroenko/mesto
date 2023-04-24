@@ -34,7 +34,6 @@ export default class Popup {
     this._popupElement.classList.add(this._selectors.popupOpenedClass);
         
     // добавить слушателей событий Esc
-    this._popupElement.addEventListener('keydown', this._handleEscClose);
     document.addEventListener('keydown', this._handleEscClose);
   }
 

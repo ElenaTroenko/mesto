@@ -5,14 +5,15 @@ export default class Section {
   // объекты данных секции для отображения, 
   // renderer - внешний рендерер,
   // 2. объект настроек селекторов
-  constructor({items, renderer}, selector){
-    this._renderedItemsData = items;
+  constructor(renderer, selector){
     this._renderer = renderer;  // колбэк - функция для рендеринга элементов секции
     this._container = document.querySelector(selector);  // контейнер
   }
 
   // рендерит элементы (вызывает внешний рендерер)
-  render() {
+  renderItems(items) {
+    this._renderedItemsData = items;
+
     this._renderedItemsData.forEach(data => {
       this._renderer(data);
     })

@@ -18,7 +18,6 @@ export default class PopupWithConfirmation extends Popup {
 
    // закрыть попап
    close() {
-    this._buttonElement.textContent = this._defaultTextButtonSubmit;  // посстановить текст на кнопке по-умолчанию
     super.close();
   }
 
@@ -26,10 +25,14 @@ export default class PopupWithConfirmation extends Popup {
   setEventListeners() {
     super.setEventListeners();
 
-    this._buttonElement.addEventListener('click', (evt) => {
+    this._buttonElement.addEventListener('click', () => {
       this._buttonElement.textContent = 'Удаление...';
-      this._confirmHendler(evt, this._confirmationObject);
+      this._confirmHendler(this._confirmationObject);
     })
+  }
 
+  // ставит текст на кнопке по-умолчанию
+  resetButtonText() {
+    this._buttonElement.textContent = this._defaultTextButtonSubmit;
   }
 }

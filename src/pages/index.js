@@ -25,8 +25,8 @@ const formList = Array.from(document.querySelectorAll(validateSelectors.formSele
 // ГЛОБАЛЬНЫЕ ОБЪЕКТЫ
 // api
 const api = getApi();
-// Инициализация секции карточек мест. Будет заменен объектом после получения карточек с сервера
-let sectionCards = {};
+// объект карточек мест
+let sectionCards = new Section(renderCardElement, sectionElementsSelectors.fotoCardSelector);
 // Инициализация объекта валидаторов
 const validatorList = {};
 // Попап с зумом
@@ -52,21 +52,39 @@ function getApi() {
         authorization: token,
         'Content-Type': 'application/json'
       },
-    },
-    (msg) => console.log(msg),
+    }
   );
 }
 
 
+// показывает ошибку (в консоль)
+function showError(err) {
+  // определить, err - это строка или нет (нет может возникнуть при отсутствии интернета, тогда это будет объект)
+  if (typeof(err) != 'string') {
+    err = 'Неизвестная ошибка. Проверьте соединение с Интернетом.'
+  }
+  
+  console.log(err);
+}
+
+
 // хэндлер для смены аватара
-function handleFormSubmitAvatar(evt, inputData) {
-  evt.preventDefault();  // не перегружать страницу в браузере
- 
+function handleFormSubmitAvatar(inputData) {
   // создать ссылку на изображение аватара
   const avatarLink = inputData[inputNames.profileAvatar];
 
   // передать новые данные на сервер
-  api.patchAvatar(avatarLink, () => api.getUserInfo(setUserInfo));
+  api.patchAvatar(avatarLink)
+  .then((data) => {
+      setUserInfo(data);
+    })
+    .catch((err) => {
+      showError(err);
+    })
+    .finally(() => {
+      popupAvatar.close();
+      popupAvatar.resetButtonText();
+    })
 }
 
 
@@ -74,20 +92,23 @@ function handleFormSubmitAvatar(evt, inputData) {
 function handleImgAvatar() {
   // открыть попап для смены аватара
   popupAvatar.open();
-  resetAllValidators();  // сбросить валидаторы
+  validatorList.avatar.resetValidation();  // сбросить валидатор
 }
 
 
 // хэндлер удаления карточки
-function handleDeleteCard(evt, cardObj) {
-  evt.preventDefault();  // не перегружать страницу в браузере
-
+function handleDeleteCard(cardObj) {
   // отправить запрос на удаление
   // передается в т.ч. коллбэкЮ который удалит карточку и закроет попап
-  api.deleteCard(cardObj.getId(), () => {
-    cardObj.remove()
+  api.deleteCard(cardObj.getId())
+  .then(() => {
+    cardObj.removeCardElement()
     popupConfirmationDelCard.close();
   })
+  .catch((err) => {
+    showError(err);
+  })
+  .finally(() => popupConfirmationDelCard.resetButtonText())
 }
 
 
@@ -105,19 +126,22 @@ function showZoom(text, src) {
 
 
 // Хендлер для смены данных в профиле пользователя
-function handleFormSubmitProfile(evt, inputData) {
-  evt.preventDefault();  // не перегружать страницу в браузере
-
+function handleFormSubmitProfile(inputData) {
   const data = {
     name: inputData[inputNames.profileName],
     about: inputData[inputNames.profileAbout],
   }
 
     // отправить на сервер новые данные о пользователе
-    api.patchUserInfo(data, (newData) => {
+    api.patchUserInfo(data)
+    .then((newData) => {
       setUserInfo(newData);
       popupEditProfile.close();
-    });
+    })
+    .catch((err) => {
+      showError(err);
+    })
+    .finally(() => popupEditProfile.resetButtonText())
 }
 
 
@@ -125,52 +149,69 @@ function handleFormSubmitProfile(evt, inputData) {
 function setUserInfo(data) {
   // сменить информацию о пользователе
   userInfo.setUserInfo(data);
-
-  // закрыть попап
-  popupAvatar.close();
 }
 
 
 // Хендлер для передачи нового места
-function handleFormSubmitPlace(evt, inputData) {
-  evt.preventDefault();  // не перегружать страницу в браузере
-
+function handleFormSubmitPlace(inputData) {
   const data = {
     name: inputData[inputNames.placeName],
     link: inputData[inputNames.placeLink],
-    owner: userInfo.getUserInfo(),
   }
 
   // отправить на сервер новую карточку места,
   // в т.ч. передается коллбэк, который отрендерит новую карточку и закроет попап
-  api.postCard(data, (newData) => {
+  api.postCard(data)
+  .then((newData) => {
     renderCardElement(newData); 
     popupNewPlace.close();
+  })  
+  .catch((err) => {
+    showError(err);
+  })
+  .finally(() => popupNewPlace.resetButtonText())
+}
+
+
+// хэндлер установки лайка карточки
+function handleLikeCard(cardId, likeCallBack) {
+  api.likeCard(cardId)
+  .then((data) => {
+    likeCallBack(data.likes);
+  })
+  .catch((err) => {
+    showError(err);
   });
 }
 
 
-// создает глобальный объект секции с заранее заданными карточками
-function createSection(defaultItems) {
-  // "и последние станут первыми"
-  defaultItems.reverse();
-  
-  // создание секции
-  sectionCards = new Section({items: defaultItems, renderer: renderCardElement}, sectionElementsSelectors.fotoCardSelector);
-  // рендеринг
-  sectionCards.render();
+// хэндлер отзыва лайка карточки
+function handleDelLikeCard(cardId, likeCallBack) {
+  api.delLikeCard(cardId)
+  .then((data) => {
+    likeCallBack(data.likes);
+  })
+  .catch((err) => {
+    showError(err);
+  });
+}
+
+
+function getCard(data) {
+  return new Card(
+    data, cardSelectors, showZoom, showConfirmDelCardPopup, userInfo.getUserInfo(),
+    (cardId, likeCallBack)=> handleLikeCard(cardId, likeCallBack),
+    (cardId, likeCallBack)=> handleDelLikeCard(cardId, likeCallBack),
+  )
 }
 
 
 // рендерит на странице размеченный card-элемент
 function renderCardElement(data) {
-  const card = new Card(
-    data, cardSelectors, showZoom, showConfirmDelCardPopup, userInfo.getUserInfo(),
-    (cardId, likeCallBack)=>api.likeCard(cardId, likeCallBack),
-    (cardId, likeCallBack)=>api.delLikeCard(cardId, likeCallBack)
-  );
+  // получить объект карты
+  const card = getCard(data);
 
-  // получить элемент карты
+  // получить DOM-элемент карты
   const cardElement = card.getCard();
   
   // добавить карту в секцию
@@ -207,22 +248,14 @@ function handleBtnProfileEdit() {
   // открыть попап редактирования профиля и передать ему данные профиля
   popupEditProfile.open(data);
 
-  resetAllValidators();  // сбросить валидаторы
+  validatorList.profile.resetValidation();  // сбросить валидатор
 }
 
 
 // Хендлер кнопки добавления нового места
 function handleBtnAddNewPlace() {
   popupNewPlace.open();       // Открыть попап добавдения нового места
-  resetAllValidators();       // сбросить валидаторы
-}
-
-
-// сбрасывает все валидаторы
-function resetAllValidators() {
-  formList.forEach(form => {
-    validatorList[form.getAttribute('name')].resetValidation();
-  });
+  validatorList.newplace.resetValidation();  // сбросить валидатор
 }
 
 
@@ -242,11 +275,30 @@ function addEvents() {
 }
 
 
+// Первый инициирующий запуск запросов инфПользователя - карточки
+function initPage() {
+  Promise.all([
+    api.getUserInfo(),
+    api.getInitialCards()
+  ])
+  .then(([data, defaultItems]) => {
+    // установить информацию о пользователе
+    setUserInfo(data);
+
+    // "и последние станут первыми"
+    defaultItems.reverse();
+    // рендеринг всех карточек с сервера
+    sectionCards.renderItems(defaultItems)
+  })
+  .catch((err) => {
+    showError(err);
+  });
+}
+
+
 // Добавить события
 addEvents();
 // включить валидацию форм
 enableValidation();
-// запустить процесс получения информации с сервера:
-// получить данные пользователя, а в качестве коллбэка
-// успеха получения этих данных передать функцию создания секции
-api.getUserInfo(setUserInfo, () => api.getInitialCards(createSection));
+// инициирующий запрос на сервер. старт
+initPage();

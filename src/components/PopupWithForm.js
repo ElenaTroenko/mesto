@@ -26,11 +26,18 @@ export default class PopupWithForm extends Popup {
     return inputData;
   }
 
+  _setInputValues(defaultData) {
+    this._inputElements.forEach(element => {
+      element.value = defaultData[element.name];
+    })
+  }
+
   // установить слушателей событий
   setEventListeners() {
     this._formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();  // не перегружать страницу в браузере
       this._buttonSubmit.textContent = 'Сохранение...';
-      this._submitHendler(evt, this._getInputValues());
+      this._submitHendler(this._getInputValues());
     })
     
     super.setEventListeners();
@@ -38,23 +45,25 @@ export default class PopupWithForm extends Popup {
 
   // закрыть попап
   close() {
-    this._buttonSubmit.textContent = this._defaultTextButtonSubmit;
     this._formElement.reset();  // предварительно сбросить форму
     super.close();
   }
 
-    // открыть попап, установив умолчания input-полей.
-    // Параметр (defaultData) - объект, 
-    // свойство - name input-поля, значение - value input-поля
-    open(defaultData) {
-    
+  // открыть попап, установив умолчания input-полей.
+  // Параметр (defaultData) - объект, 
+  // свойство - name input-поля, значение - value input-поля
+  open(defaultData) {
     if (defaultData) {
-      this._inputElements.forEach(element => {
-        element.value = defaultData[element.name];
-      })
+      this._setInputValues(defaultData);
     }
     
     super.open();
+  }
+
+
+  // возвращает начальное название кнопки
+  resetButtonText() {
+    this._buttonSubmit.textContent = this._defaultTextButtonSubmit;
   }
 
 }
