@@ -26,7 +26,7 @@ export default class PopupWithForm extends Popup {
     return inputData;
   }
 
-  _setInputValues(defaultData) {
+  setInputValues(defaultData) {
     this._inputElements.forEach(element => {
       element.value = defaultData[element.name];
     })
@@ -48,18 +48,6 @@ export default class PopupWithForm extends Popup {
     this._formElement.reset();  // предварительно сбросить форму
     super.close();
   }
-
-  // открыть попап, установив умолчания input-полей.
-  // Параметр (defaultData) - объект, 
-  // свойство - name input-поля, значение - value input-поля
-  open(defaultData) {
-    if (defaultData) {
-      this._setInputValues(defaultData);
-    }
-    
-    super.open();
-  }
-
 
   // возвращает начальное название кнопки
   resetButtonText() {

@@ -41,7 +41,6 @@ export default class Popup {
   close() {
     // удалить слушателей событий Esc
     document.removeEventListener('keydown', this._handleEscClose);
-    this._popupElement.removeEventListener('keydown', this._handleEscClose);
     
     this._popupElement.classList.remove(this._selectors.popupOpenedClass);
   }

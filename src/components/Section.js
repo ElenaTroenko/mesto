@@ -12,9 +12,7 @@ export default class Section {
 
   // рендерит элементы (вызывает внешний рендерер)
   renderItems(items) {
-    this._renderedItemsData = items;
-
-    this._renderedItemsData.forEach(data => {
+    items.forEach(data => {
       this._renderer(data);
     })
   }

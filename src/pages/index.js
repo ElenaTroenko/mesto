@@ -26,7 +26,7 @@ const formList = Array.from(document.querySelectorAll(validateSelectors.formSele
 // api
 const api = getApi();
 // объект карточек мест
-let sectionCards = new Section(renderCardElement, sectionElementsSelectors.fotoCardSelector);
+const sectionCards = new Section(renderCardElement, sectionElementsSelectors.fotoCardSelector);
 // Инициализация объекта валидаторов
 const validatorList = {};
 // Попап с зумом
@@ -77,14 +77,12 @@ function handleFormSubmitAvatar(inputData) {
   api.patchAvatar(avatarLink)
   .then((data) => {
       setUserInfo(data);
+      popupAvatar.close();
     })
     .catch((err) => {
       showError(err);
     })
-    .finally(() => {
-      popupAvatar.close();
-      popupAvatar.resetButtonText();
-    })
+    .finally(() => popupAvatar.resetButtonText())
 }
 
 
@@ -198,21 +196,22 @@ function handleDelLikeCard(cardId, likeCallBack) {
 
 
 function getCard(data) {
-  return new Card(
+  // получить объект карты
+  const card =  new Card(
     data, cardSelectors, showZoom, showConfirmDelCardPopup, userInfo.getUserInfo(),
-    (cardId, likeCallBack)=> handleLikeCard(cardId, likeCallBack),
-    (cardId, likeCallBack)=> handleDelLikeCard(cardId, likeCallBack),
+    (cardId, likeCallBack) => handleLikeCard(cardId, likeCallBack),
+    (cardId, likeCallBack) => handleDelLikeCard(cardId, likeCallBack),
   )
+
+  // вернуть DOM-элемент карты
+  return card.getCard();
 }
 
 
 // рендерит на странице размеченный card-элемент
 function renderCardElement(data) {
-  // получить объект карты
-  const card = getCard(data);
-
   // получить DOM-элемент карты
-  const cardElement = card.getCard();
+  const cardElement = getCard(data); 
   
   // добавить карту в секцию
   sectionCards.addItem(cardElement);
@@ -246,7 +245,9 @@ function handleBtnProfileEdit() {
   data[inputNames.profileAbout] = userInfoData.about,
 
   // открыть попап редактирования профиля и передать ему данные профиля
-  popupEditProfile.open(data);
+  popupEditProfile.setInputValues(data);
+  popupEditProfile.open();
+  
 
   validatorList.profile.resetValidation();  // сбросить валидатор
 }
